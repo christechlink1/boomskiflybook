@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Shipment - MyWay Logistics</title>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <style>
+    /* Basic layout & nav copied from index.html */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI',sans-serif; background:#f2f2f2; color:#333; }
+    .nav { display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(0,116,228,0.95); position:sticky; top:0; z-index:10; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
+    .nav .logo { font-size:1.5rem; color:white; font-weight:bold; }
+    .nav-links { list-style:none; display:flex; gap:1.5rem; }
+    .nav-links a { text-decoration:none; padding:.5rem 1rem; background:white; color:#0074E4; border-radius:20px; transition:.3s; font-weight:500; }
+    .nav-links a:hover { background:#005bb5; color:white; }
+    main { padding:2rem; max-width:600px; margin:2rem auto; background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+    input, button { width:100%; padding:.75rem; margin:1rem 0; font-size:1rem; }
+    button { background:#0074E4; color:white; border:none; border-radius:6px; cursor:pointer; transition:.3s; }
+    button:hover { background:#005bb5; }
+    #track-result { margin-top:2rem; }
+    .result-card { background:#eaf3ff; padding:1rem; border-left:4px solid #0074E4; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">🚚 MyWay Logistics</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="track.html">Track</a></li>
+      <li><a href="book.html">Book</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <h2>Track Your Shipment</h2>
+    <form id="track-form">
+      <input type="text" id="trackingNumber" placeholder="Enter Tracking Number" required>
+      <button type="submit">Track</button>
+    </form>
+    <div id="track-result"></div>
+  </main>
+
+  <footer style="text-align:center;padding:1rem;background:#0074E4;color:white;">
+    &copy; 2025 MyWay Logistics
+  </footer>
+
+  <script>
+    document.getElementById('track-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const tn = document.getElementById('trackingNumber').value.trim();
+      const res = await fetch('/api/track', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ trackingNumber: tn }) });
+      const data = await res.json();
+      document.getElementById('track-result').innerHTML = `
+        <div class="result-card">
+          <h3>${data.trackingNumber}</h3>
+          <p><strong>Status:</strong> ${data.status}</p>
+          <p><strong>Location:</strong> ${data.location}</p>
+          <p><strong>Updated:</strong> ${data.updatedAt}</p>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Shipment - MyWay Logistics</title>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <style>
+    /* Styles same as track.html */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI',sans-serif; background:#f2f2f2; color:#333; }
+    .nav { display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(0,116,228,0.95); position:sticky; top:0; z-index:10; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
+    .nav .logo { font-size:1.5rem; color:white; font-weight:bold; }
+    .nav-links { list-style:none; display:flex; gap:1.5rem; }
+    .nav-links a { text-decoration:none; padding:.5rem 1rem; background:white; color:#0074E4; border-radius:20px; transition:.3s; font-weight:500; }
+    .nav-links a:hover { background:#005bb5; color:white; }
+    main { padding:2rem; max-width:600px; margin:2rem auto; background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+    input, select, button { width:100%; padding:.75rem; margin:1rem 0; font-size:1rem; }
+    button { background:#0074E4; color:white; border:none; border-radius:6px; cursor:pointer; transition:.3s; }
+    button:hover { background:#005bb5; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">🚚 MyWay Logistics</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="track.html">Track</a></li>
+      <li><a href="book.html">Book</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <h2>Book a New Shipment</h2>
+    <form id="book-form">
+      <input type="text" id="sender" placeholder="Sender Name" required>
+      <input type="text" id="receiver" placeholder="Receiver Name" required>
+      <input type="text" id="from" placeholder="From Address" required>
+      <input type="text" id="to" placeholder="To Address" required>
+      <input type="number" id="weight" placeholder="Weight (kg)" required>
+      <button type="submit">Get Quote & Book</button>
+    </form>
+    <div id="book-result"></div>
+  </main>
+
+  <footer style="text-align:center;padding:1rem;background:#0074E4;color:white;">
+    &copy; 2025 MyWay Logistics
+  </footer>
+
+  <script>
+    document.getElementById('book-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const details = {
+        sender: document.getElementById('sender').value,
+        receiver: document.getElementById('receiver').value,
+        from: document.getElementById('from').value,
+        to: document.getElementById('to').value,
+        weight: +document.getElementById('weight').value
+      };
+      const res = await fetch('/api/book', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(details) });
+      const data = await res.json();
+      document.getElementById('book-result').innerHTML = `
+        <div class="result-card">
+          <h3>Booked!</h3>
+          <p><strong>Tracking ID:</strong> ${data.trackingNumber}</p>
+          <p><strong>Estimated Cost:</strong> GHS ${data.cost}</p>
+        </div>
+      `;
+      document.getElementById('book-form').reset();
+    });
+  </script>
+</body>
+</html>

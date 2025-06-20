@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyWay Logistics</title>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 116, 228, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .logo { font-size: 1.5rem; color: white; font-weight: bold; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background: white;
+      color: #0074E4;
+      border-radius: 20px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links li a:hover {
+      background: #005bb5;
+      color: white;
+    }
+
+    .hero {
+      background: url("assets/bg.png") no-repeat center center/cover;
+      position: relative;
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero h1, .hero p, .hero .btn {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+    .btn {
+      background: #ffffff;
+      color: #0074E4;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #005bb5;
+      color: white;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .card {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: #0074E4;
+      color: white;
+    }
+
+    .card iconify-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover iconify-icon {
+      transform: rotate(10deg);
+    }
+
+    .json-btn {
+      margin: 0.5rem;
+      display: inline-block;
+      background: #0074E4;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .json-btn:hover {
+      background: #005bb5;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #0074E4;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      animation: fadeIn 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="logo">🚚 MyWay Logistics</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#recent-tracking">Track</a></li>
+      <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#booking-history">Book</a></li>
+      <li><a href="#admin">Admin</a></li>
+    </ul>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <h1>Ship Smarter with MyWay</h1>
+    <p>Track, calculate, and ship with ease</p>
+    <a href="#" class="btn">Book a Shipment</a>
+  </section>
+
+  <!-- JSON Buttons -->
+  <section id="json-buttons" style="text-align:center; padding: 2rem;">
+    <h2>Quick Tools</h2>
+    <div id="button-container" style="margin-top: 1rem;"></div>
+  </section>
+
+  <!-- Extra Cards -->
+  <section id="extra-cards" class="features"></section>
+
+  <!-- Popular Routes -->
+  <section id="popular-routes" class="features"></section>
+
+  <!-- Tracking -->
+  <section class="features" id="recent-tracking">
+    <h2 style="grid-column: 1 / -1; text-align: center;">Recent Shipments</h2>
+  </section>
+
+  <!-- Booking History -->
+  <section class="features" id="booking-history">
+    <h2 style="grid-column: 1 / -1; text-align: center;">Booking History</h2>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MyWay Logistics. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal -->
+  <div id="cardModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- JS Section -->
+  <script>
+    const toolsData = [
+      { label: "Track Shipment", link: "track.html", icon: "mdi:truck-check" },
+      { label: "Book Now", link: "book.html", icon: "mdi:form-select" },
+      { label: "Contact Support", link: "mailto:support@myway.com", icon: "mdi:headset" }
+    ];
+
+    toolsData.forEach(tool => {
+      const btn = document.createElement('a');
+      btn.href = tool.link;
+      btn.className = 'btn json-btn';
+      btn.innerHTML = `<iconify-icon icon="${tool.icon}" style="margin-right:6px;"></iconify-icon>${tool.label}`;
+      document.getElementById('button-container').appendChild(btn);
+    });
+
+    const routes = [
+      { from: "Accra", to: "Dubai", price: 800 },
+      { from: "Accra", to: "London", price: 650 },
+      { from: "Accra", to: "Kumasi", price: 120 },
+      { from: "Accra", to: "Rome", price: 910 },
+      { from: "Accra", to: "Johannesburg", price: 700 },
+      { from: "Accra", to: "Nairobi", price: 730 },
+      { from: "Accra", to: "Doha", price: 1050 }
+    ];
+
+    const routeSection = document.getElementById("popular-routes");
+
+    routes.forEach(route => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.onclick = () => openModal(
+        `${route.from} → ${route.to}`,
+        `<strong>Flight Route:</strong> ${route.from} to ${route.to}<br>
+         <strong>Estimated Price:</strong> GHS ${route.price}<br>
+         <strong>Offer:</strong> Use coupon <code>BOOMS</code> for GHS 50 OFF.<br><br>
+         <a href="book.html" class="btn json-btn">Book Now</a>`
+      );
+      div.innerHTML = `<iconify-icon icon="mdi:airplane"></iconify-icon>
+                       <h3>${route.from} → ${route.to}</h3>
+                       <p>From <strong>GHS ${route.price}</strong></p>`;
+      routeSection.appendChild(div);
+    });
+
+    function openModal(title, body, icon = "mdi:airplane", isAdmin = false) {
+      const modal = document.getElementById('cardModal');
+      const modalBody = document.getElementById('modal-body');
+
+      let formHTML = '';
+      if (isAdmin) {
+        formHTML = `
+          <hr><h3>Edit Shipment</h3>
+          <form id="admin-form">
+            <label>Status:</label><br>
+            <select>
+              <option>Processing</option>
+              <option>In Transit</option>
+              <option>Delivered</option>
+              <option>Cancelled</option>
+            </select><br><br>
+            <label>Change Destination:</label><br>
+            <input type="text" placeholder="New Destination"><br><br>
+            <button type="submit" class="btn">Save Changes</button>
+          </form>
+        `;
+      }
+
+      modalBody.innerHTML = `
+        <div style="text-align:center;">
+          <iconify-icon icon="${icon}" style="font-size: 3rem; color: #0074E4;"></iconify-icon>
+          <h2>${title}</h2>
+        </div>
+        <div>${body}</div>
+        ${formHTML}
+      `;
+
+      modal.style.display = "flex";
+    }
+
+    document.querySelector('.close').onclick = () => {
+      document.getElementById('cardModal').style.display = "none";
+    };
+
+    window.onclick = e => {
+      if (e.target.id === "cardModal") {
+        document.getElementById('cardModal').style.display = "none";
+      }
+    };
+
+    document.addEventListener("submit", function (e) {
+      if (e.target.id === "admin-form") {
+        e.preventDefault();
+        alert("Admin changes saved.");
+        document.getElementById('cardModal').style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
